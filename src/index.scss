@@ -1,5 +1,37 @@
-$main-color: skyblue;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+$bg-color: #25292e;
+$default-font-color: #e0e0e0;
+
+*{
+  box-sizing: border-box;
+}
+html{
+  font-size: 10px;
+}
 body {
-  background-color: $main-color;
+  background-color: $bg-color;
+  color:$default-font-color;
+  font-family: 'Montserrat', sans-serif;
+}
+h1{
+  text-align: center;
+}
+.input-form{
+  width:500px;
+  height: 25px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  .input-users{
+    width:30px;
+    border:0;
+    margin-right: 2px;
+    text-align: center;
+  }
+  .btn-form{
+    width:50px;
+    margin-left:5px;
+    &:focus{outline: blue;}
+  }
 }
