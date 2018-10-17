@@ -1,36 +1,37 @@
-let userInput = [];
-let question = [];
-let strike = 0;
-let ball = 0;
-
+const gameState = {
+  userInput: [],
+  question: [],
+  strike: 0,
+  ball: 0,
+}
 // 초기화 함수
 function init() {
   // 문제 배열 만들기
-  question = [];
+  gameState.question = [];
   for (let i = 0; i < 3; i++) {
     const number = Math.floor(Math.random() * 9).toString();
-    if (question.includes(number)) {
+    if (gameState.question.includes(number)) {
       i--;
     } else {
-      question.push(number);
+      gameState.question.push(number);
     }
   }
   // 유저 배열 초기화하기
-  userInput = [];
+  gameState.userInput = [];
   // TODO : dom 확인용 나중에 지우자
-  document.getElementById('question').innerHTML = `${question}`
+  document.getElementById('question').innerHTML = `${gameState.question}`
 }
 
 // *** 화면 그리는 함수
 function drawInning() {
-
   console.log('drawInning');
 }
 // *** 상태를 핸들링하는 함수
 
 // reset 버튼 눌렀을 때
 document.getElementById('btnReset').addEventListener('click', (e) => {
-  init();
+  e.preventDefault();
+  document.querySelector('.input-form').reset();
 });
 
 // 유저 입력 이벤트
@@ -47,33 +48,36 @@ document.querySelector('.input-form').addEventListener('submit', (e) => {
   e.preventDefault();
 
   elements.inputUsers.forEach(item => {
-    userInput.push(item.value); // 사용자 입력 상태 업데이트
+    gameState.userInput.push(item.value); // 사용자 입력 상태 업데이트
   });
   // 로직 확인하기
   logic();
   // 확인 후 유저배열 지우기
-  userInput = [];
+  gameState.userInput = [];
   // 현재 상태로 화면 그리기
+  drawInning();
 });
 
 // *** logic
 
 function logic() {
-  console.log(question);
-  console.log(userInput);
+  console.log(gameState.question);
+  console.log(gameState.userInput);
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      if (i === j && question[i] === userInput[j]) {
-        strike++;
+      if (i === j && gameState.question[i] === gameState.userInput[j]) {
+        gameState.strike++;
       }
-      if (i !== j && question[i] === userInput[j]) {
-        ball++;
+      if (i !== j && gameState.question[i] === gameState.userInput[j]) {
+        gameState.ball++;
       }
     }
   }
 
-  console.log(`${strike} strike`);
-  console.log(`${ball} ball`);
+  console.log(`${gameState.strike} strike`);
+  console.log(`${gameState.ball} ball`);
+  gameState.strike = 0;
+  gameState.ball = 0;
 }
 
 
