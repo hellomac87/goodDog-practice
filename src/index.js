@@ -51,6 +51,7 @@ function init() {
 document.getElementById('btnReset').addEventListener('click', (e) => {
   e.preventDefault(); // 기존의 submit 이벤트를 막는다.
   document.querySelector('.input-form').reset(); // form 엘리먼트 내, 요소들의 입력값을 초기화한다.
+  init();
 });
 
 // 유저 입력 이벤트
@@ -58,7 +59,7 @@ document.querySelectorAll('.input-users').forEach((inputUser, index) => {
   // 각 유저 입력 input 요소에 이벤트를 input 이벤트를 추가한다.
   inputUser.addEventListener('input', (e) => {
     // input 요소에 입력이 발생하면 다음 input 엘리먼트로 포커스한다.
-    inputUser.nextElementSibling.focus();
+    // inputUser.nextElementSibling.focus();
   });
 });
 
@@ -78,15 +79,20 @@ document.querySelector('.input-form').addEventListener('submit', (e) => {
 
   // 현재 상태로 화면 그리기
   drawInning();
+  // 이닝을 그린 후에 유저 입력 첫번째 input 으로 포커스한다.
+  document.querySelectorAll('.input-users')[0].focus();
 
+  // 삼진
   if (gameState.strike === 3) {
     alert('삼진');
     init();
   }
+
+  // 게임 끝
   if (document.querySelectorAll('.inning li').length === 9) {
     alert('end')
   }
-  console.log()
+
   // 화면 그린 후 유저배열 지우기
   gameState.userInput = [];
   gameState.strike = 0;

@@ -33,7 +33,7 @@ h1{
   .btn-form{
     width:50px;
     margin-left:5px;
-    &:focus{outline: blue;}
+    &:focus{outline: 1px solid red;}
   }
 }
 
